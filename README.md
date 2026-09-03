@@ -1,86 +1,118 @@
-# Sales Data Analysis
+# Retail Sales Exploratory Analysis
 
-An exploratory data analysis project using Python to uncover patterns, trends, customer behavior, and business insights from transactional sales data.
+An evidence-led exploratory data analysis of one month of transaction data. The project demonstrates a reproducible workflow for validating data, examining revenue patterns, understanding customer behaviour, and translating statistical findings into appropriately qualified business insights.
 
-## Project Overview
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/DrHiraBenish/sales-data-analysis/blob/main/notebooks/01_sales_eda.ipynb)
 
-This project demonstrates a complete exploratory data analysis workflow, from data cleaning and validation to statistical analysis, visualization, customer analysis, and correlation analysis.
-
-## Key Results
+## Project at a Glance
 
 | Metric | Result |
 |---|---:|
-| Total Sales | 15,547.35 |
-| Transactions Analyzed | 277 |
-| Customers Represented | 86 |
-| Average Transaction Value | 56.13 |
-| Highest Daily Sales | 1,147.62 |
-| Highest-Value Customer | Customer 48 |
-| Sales–Transaction Correlation | 0.694 |
+| Raw records | 281 |
+| Records analysed | 277 |
+| Missing sales values | 4 (1.4%) |
+| Total recorded sales | 15,547.35 |
+| Unique customers | 86 |
+| Average transaction | 56.13 |
+| Median transaction | 36.28 |
+| Highest-sales day | 22 September 2020 (1,147.62) |
 
-## Analysis Performed
+![Retail sales analysis dashboard](reports/figures/overview_dashboard.svg)
 
-- Data inspection and validation
-- Missing-value analysis
-- Duplicate detection
-- Date conversion and preprocessing
-- Descriptive statistics
-- Sales distribution analysis
-- Outlier detection using IQR
-- Daily sales trend analysis
-- Customer-level sales analysis
-- Transaction-volume analysis
-- Correlation analysis
+## Questions Addressed
 
-## Key Insights
+1. Is the dataset complete, internally consistent, and suitable for analysis?
+2. What do the centre, spread, and shape of transaction values reveal?
+3. How do total sales and transaction volume change across the month?
+4. Which customers contribute the most recorded sales?
+5. Is daily sales performance associated with transaction volume?
+6. Which conclusions are supported by this dataset—and which are not?
 
-- The sales distribution is right-skewed, with the mean (56.13) higher than the median (36.28).
-- Six high-value transactions were identified as statistical outliers and retained as valid observations.
-- September 22 recorded the highest daily sales at 1,147.62.
-- September 9 recorded the lowest daily sales at 119.70.
-- Customer 48 generated the highest total sales at 524.41 across four transactions.
-- Daily transaction volume and total daily sales showed a correlation of 0.694, indicating a moderately strong positive relationship.
+## Analytical Approach
 
-## Tools & Technologies
+```text
+Raw data
+   ↓
+Validation and quality checks
+   ↓
+Transparent missing-value treatment
+   ↓
+Transaction, daily, and customer-level summaries
+   ↓
+Distribution and outlier analysis
+   ↓
+Relationship analysis and qualified interpretation
+   ↓
+Reproducible tables, figures, and conclusions
+```
 
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Jupyter Notebook
-- Google Colab
+Four records have no sales amount. They are excluded from revenue calculations rather than mean-imputed because imputation would create artificial revenue. The original file remains unchanged, and the exclusion is reported explicitly.
 
+## Key Findings
 
-## Project Structure
+- Recorded sales total **15,547.35** across **277 complete transactions** from **86 customers**.
+- The distribution is right-skewed: the mean transaction (**56.13**) is substantially above the median (**36.28**). A typical transaction is therefore represented more reliably by the median than by the mean alone.
+- Six high-value observations exceed the IQR upper fence of **185.36**. They account for **7.6%** of recorded sales and are retained because the available fields provide no evidence that they are data-entry errors.
+- **22 September 2020** produced the highest daily sales (**1,147.62**); the lowest was **9 September** (**119.70**). With only one month of data, these are descriptive observations rather than evidence of seasonality.
+- Customer 48 generated the highest recorded sales (**524.41** across four transactions). The top 10 customers contributed **26.3%** of total sales, suggesting that revenue is not dominated by a single customer.
+- **74.4%** of observed customers made more than one transaction and contributed **87.0%** of recorded sales. This is within-month repeat activity, not a long-term retention rate.
+- Daily transaction count and daily sales have a Pearson correlation of **0.694**. This relationship is expected in part because daily sales is mathematically the sum of transaction values; it should not be presented as causal evidence.
+
+## Reproducibility
+
+```bash
+git clone https://github.com/DrHiraBenish/sales-data-analysis.git
+cd sales-data-analysis
+python -m venv .venv
+```
+
+Activate the environment, then install the dependencies and run the analysis:
+
+```bash
+pip install -r requirements.txt
+python src/analyze_sales.py
+```
+
+The script reads `data/grocery_sales.csv` and regenerates all tables and figures in `reports/`.
+
+## Repository Structure
 
 ```text
 sales-data-analysis/
+├── data/
+│   └── grocery_sales.csv
 ├── notebooks/
 │   └── 01_sales_eda.ipynb
-├── 01_sales_data_analysis.py
-├── grocery_sales.csv
+├── reports/
+│   ├── figures/
+│   └── tables/
+├── src/
+│   └── analyze_sales.py
+├── requirements.txt
 └── README.md
 ```
-## How to Use
 
-1. Clone or download this repository.
-2. Open `notebooks/01_sales_eda.ipynb` in Jupyter Notebook or Google Colab.
-3. Ensure `grocery_sales.csv` is available in the notebook environment.
-4. Run the notebook cells sequentially.
+## Data Dictionary
 
-## Future Development
+| Field | Type | Description |
+|---|---|---|
+| `customer_id` | Integer | Anonymised customer identifier |
+| `transaction_date` | Date | Date of the recorded transaction |
+| `transaction_id` | Integer | Unique transaction identifier |
+| `sales` | Numeric | Recorded transaction sales amount; currency is not specified |
 
-Future versions may extend the analysis with:
+## Limitations
 
-- Interactive dashboards
-- Customer segmentation
-- Predictive sales modelling
-- Machine learning
-- Advanced statistical analysis
-### Author
+- The dataset covers only **September 2020**, so it cannot support seasonal or long-term forecasting claims.
+- Product, category, location, cost, and profit fields are unavailable; product performance and profitability cannot be evaluated.
+- Customer identifiers show activity within the observed month only; they do not establish acquisition, churn, or long-term retention.
+- The original source, sampling method, and currency were not documented in the earlier repository. Results should therefore be treated as a portfolio demonstration, not as generalisable retail evidence.
+- The small sample means that segment comparisons should remain descriptive.
 
-Dr. Hira Benish
-Associate Professor of Mathematics | Data Science | Deep Learning | Artificial Intelligence
+## Tools
 
-Riphah International University, Sahiwal
+Python · Pandas · NumPy · Matplotlib · Seaborn · Jupyter Notebook · Google Colab
+
+## Author
+
+**Dr. Hira Benish** — Associate Professor of Mathematics · Researcher · Mathematics Behind AI
