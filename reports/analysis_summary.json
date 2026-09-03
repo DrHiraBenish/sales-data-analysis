@@ -1,0 +1,34 @@
+{
+  "raw_records": 281,
+  "records_analyzed": 277,
+  "missing_sales": 4,
+  "missing_sales_percent": 1.4,
+  "date_start": "2020-09-01",
+  "date_end": "2020-09-30",
+  "total_sales": 15547.35,
+  "unique_customers": 86,
+  "mean_transaction": 56.13,
+  "median_transaction": 36.28,
+  "mean_95_percent_bootstrap_interval": [
+    50.04,
+    62.45
+  ],
+  "median_95_percent_bootstrap_interval": [
+    26.09,
+    45.53
+  ],
+  "iqr_upper_fence": 185.36,
+  "high_value_transactions": 6,
+  "high_value_sales_share_percent": 7.6,
+  "highest_sales_day": "2020-09-22",
+  "highest_daily_sales": 1147.62,
+  "lowest_sales_day": "2020-09-09",
+  "lowest_daily_sales": 119.7,
+  "top_customer_id": 48,
+  "top_customer_sales": 524.41,
+  "top_customer_transactions": 4,
+  "top_10_sales_share_percent": 26.3,
+  "repeat_customer_share_percent": 74.4,
+  "repeat_customer_sales_share_percent": 87.0,
+  "daily_sales_transaction_correlation": 0.694
+}
